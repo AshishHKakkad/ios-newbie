@@ -86,20 +86,23 @@ static int const kNumTiles    = 7;
     _scrollView.maximumZoomScale = maxScale;
     _scrollView.zoomScale = maxScale;
     
-    NSLog(@"%s: _scrollView %@ %@",
+    NSLog(@"%s: scrollView origin=%@ size=%@ minScale=%f zoomScale=%f maxScale=%f",
           __PRETTY_FUNCTION__,
           NSStringFromCGPoint(_scrollView.frame.origin),
-          NSStringFromCGSize(_scrollView.frame.size));
+          NSStringFromCGSize(_scrollView.frame.size),
+          _scrollView.minimumZoomScale,
+          _scrollView.zoomScale,
+          _scrollView.maximumZoomScale);
     
-    NSLog(@"%s: _imageView %@ %@",
+    NSLog(@"%s: imageView origin=%@ size=%@",
           __PRETTY_FUNCTION__,
           NSStringFromCGPoint(_imageView.frame.origin),
           NSStringFromCGSize(_imageView.frame.size));
     
-    NSLog(@"%s: minScale=%f maxScale=%f",
+    NSLog(@"%s: contentView origin=%@ size=%@",
           __PRETTY_FUNCTION__,
-          minScale,
-          maxScale);
+          NSStringFromCGPoint(_contentView.frame.origin),
+          NSStringFromCGSize(_contentView.frame.size));
 }
 
 - (void) handleTileMoved:(NSNotification*)notification {
@@ -110,7 +113,7 @@ static int const kNumTiles    = 7;
     
     if (tile.superview != _scrollView && CGRectIntersectsRect(tile.frame, _scrollView.frame)) {
         [tile removeFromSuperview];
-        [_scrollView addSubview:tile];
+        [_contentView addSubview:tile];
         tile.frame = CGRectMake(tile.frame.origin.x + _scrollView.contentOffset.x,
                                 tile.frame.origin.y + _scrollView.contentOffset.y,
                                 kTileWidth * _scrollView.zoomScale,
@@ -125,7 +128,7 @@ static int const kNumTiles    = 7;
 
 - (UIView*)viewForZoomingInScrollView:(UIScrollView*)scrollView
 {
-    return _imageView;
+    return _contentView;
 }
 
 - (IBAction)scrollViewDoubleTapped:(UITapGestureRecognizer*)sender
