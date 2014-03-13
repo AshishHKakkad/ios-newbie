@@ -16,8 +16,8 @@ static int const kNumTiles    = 7;
           NSStringFromCGSize(_imageView.image.size));
     
     _imageView.frame = CGRectMake(0, 0, 1000, 1000);
-    _scrollView.contentSize = _imageView.frame.size;
-    _scrollView.canCancelContentTouches = NO;
+    _contentView.frame = CGRectMake(0, 0, 1000, 1000);
+    //_scrollView.canCancelContentTouches = NO;
     self.automaticallyAdjustsScrollViewInsets = NO;
     
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
@@ -46,7 +46,7 @@ static int const kNumTiles    = 7;
           NSStringFromCGPoint(_scrollView.contentOffset),
           NSStringFromCGSize(_scrollView.contentSize));
     
-    _scrollView.contentSize = _imageView.frame.size;
+    _scrollView.contentSize = CGSizeMake(1000, 1000);
     
     [self adjustFrames];
     [self adjustZoom];
