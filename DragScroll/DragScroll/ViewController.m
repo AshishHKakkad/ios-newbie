@@ -41,9 +41,10 @@ static int const kNumTiles    = 7;
 - (void) viewDidLayoutSubviews
 {
     [super viewDidLayoutSubviews];
-    NSLog(@"%s contentOffset %@",
+    NSLog(@"%s contentOffset=%@ contentSize=%@",
           __PRETTY_FUNCTION__,
-          NSStringFromCGPoint(_scrollView.contentOffset));
+          NSStringFromCGPoint(_scrollView.contentOffset),
+          NSStringFromCGSize(_scrollView.contentSize));
     
     _scrollView.contentSize = _imageView.frame.size;
     
